@@ -67,6 +67,7 @@ def add_team_members(team_ids,team_id):
 
         for member in team_members:
             if member['user']['username'] not in existing_team_members_ids:
+                time.sleep(0.2)
                 res = requests.post('{}'.format(team_members_url.format(team_id)),data=json.dumps({'team':team,'user':member['user']['username'],"role": member['role']}) ,headers={'Authorization': 'Token {}'.format(api_key),"Content-type":"application/json"})
                 if res.status_code != 201 and res.json() !=  ['User already exists'] :
                     print("error in adding user to team status:{},error:{},email:{}".format(res.status_code,str(res.json()),member['user']['email']))
